@@ -50,8 +50,9 @@ public class ProductItemClass {
         int id = object.optInt("id");
         String name  = object.optString("name");
         ArrayList<ProductCategoryLocation> locations = ProductCategoryLocation.fromJson(object.getJSONArray("coords"));
-        ArrayList<ProductItemClass> products = ProductItemClass.fromJson(object.getJSONArray("products"), id, locations, name);
-        return products;
+        //TODO использовать String для хранения координат в виде JSON объекта
+//        ArrayList<ProductItemClass> products =
+        return ProductItemClass.fromJson(object.getJSONArray("products"), id, locations, name);
 
     }
 
@@ -84,6 +85,24 @@ public class ProductItemClass {
 
     public ArrayList<ProductCategoryLocation> getLocations() {
         return locations;
+    }
+    public String getStringLocations(){
+        String result = "[";
+        for (ProductCategoryLocation location:
+             locations) {
+            for (CoordinatsClass coordinat :
+                    location.getCoordinats()) {
+                if (!result.equalsIgnoreCase("[")){result+=", ";}
+                result +="{\"y\": "+coordinat.getPoint().y + ", \"x\": "+coordinat.getPoint().x+"}";
+            }
+
+        }
+        result += "]";
+        return result;
+    }
+
+    public int getParentID() {
+        return parentID;
     }
 
     public int getId() {

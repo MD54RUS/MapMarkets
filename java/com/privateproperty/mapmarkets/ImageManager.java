@@ -105,43 +105,43 @@ public class ImageManager {
         }
         return bitmap;
     }
-    private void downloadImage (Context context, int cacheTime, String iUrl) {
-        Bitmap bitmap = null;
-        if (cacheTime != 0) {
-            File file = new File(context.getExternalCacheDir(), md5(iUrl)
-                    + ".cache");
-            long time = new Date().getTime() / 1000;
-            long timeLastModifed = file.lastModified() / 1000;
-            try {
-                if (file.exists()) {
-                    if (timeLastModifed + cacheTime < time) {
-                        file.delete();
-                        file.createNewFile();
-                        fileSave(new URL(iUrl).openStream(),
-                                new FileOutputStream(file));
-                    }
-                } else {
-                    file.createNewFile();
-                    fileSave(new URL(iUrl).openStream(), new FileOutputStream(
-                            file));
-                }
-                bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            if (bitmap == null) {
-                file.delete();
-            }
-        } else {
-            try {
-                bitmap = BitmapFactory.decodeStream(new URL(iUrl).openStream());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-
-    }
+//    private void downloadImage (Context context, int cacheTime, String iUrl) {
+//        Bitmap bitmap = null;
+//        if (cacheTime != 0) {
+//            File file = new File(context.getExternalCacheDir(), md5(iUrl)
+//                    + ".cache");
+//            long time = new Date().getTime() / 1000;
+//            long timeLastModifed = file.lastModified() / 1000;
+//            try {
+//                if (file.exists()) {
+//                    if (timeLastModifed + cacheTime < time) {
+//                        file.delete();
+//                        file.createNewFile();
+//                        fileSave(new URL(iUrl).openStream(),
+//                                new FileOutputStream(file));
+//                    }
+//                } else {
+//                    file.createNewFile();
+//                    fileSave(new URL(iUrl).openStream(), new FileOutputStream(
+//                            file));
+//                }
+//                bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//            if (bitmap == null) {
+//                file.delete();
+//            }
+//        } else {
+//            try {
+//                bitmap = BitmapFactory.decodeStream(new URL(iUrl).openStream());
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//
+//    }
     public void fetchImage(final Context context, final int cacheTime, final String url, final ImageView iView) {
         if (iView != null) {
             if (findObject(iView)) {

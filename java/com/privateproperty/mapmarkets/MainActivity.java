@@ -12,11 +12,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        MarketsLoader Mloader = new MarketsLoader();
+        Mloader.LoadData(this);
     }
     public void showSearch(View v)
     {
 
-        final Intent intent = new Intent(this, Markets.class);
+        Intent intent = new Intent(this, Markets.class);
         startActivity(intent);
     }
     public void showList (View v)

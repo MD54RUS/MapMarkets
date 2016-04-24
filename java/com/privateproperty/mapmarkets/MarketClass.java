@@ -17,18 +17,18 @@ public class MarketClass {
     private String urlMap;
     private String name;
     private String address;
-    private double lat;
-    private double coordinat;
+    private double latitude;
+    private double longitude;
     private String city;
 
-    public MarketClass(int id, String urlLogo, String urlMap, String name, String address, double lat, double coordinat, String city) {
+    public MarketClass(int id, String urlLogo, String urlMap, String name, String address, double latitude, double longitude, String city) {
         this.id = id;
         this.urlLogo = urlLogo;
         this.urlMap = urlMap;
         this.name = name;
         this.address = address;
-        this.lat = lat;
-        this.coordinat = coordinat;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.city = city;
     }
     public static MarketClass fromJson(final JSONObject object) {
@@ -37,8 +37,8 @@ public class MarketClass {
         String urlMap = object.optString("urlMap");
         String name  = object.optString("name");
         String address  = object.optString("address");
-        double lat = object.optDouble("lat");
-        double coordinat = object.optDouble("coordinat");
+        double lat = object.optDouble("latitude");
+        double coordinat = object.optDouble("longitude");
         String city  = object.optString("city");
         return new MarketClass(id,urlLogo,urlMap,name,address,lat,coordinat,city);
     }
@@ -79,12 +79,12 @@ public class MarketClass {
         return address;
     }
 
-    public double getLat() {
-        return lat;
+    public double getLatitude() {
+        return latitude;
     }
 
-    public double getCoordinat() {
-        return coordinat;
+    public double getLongitude() {
+        return longitude;
     }
 
     public String getCity() {
