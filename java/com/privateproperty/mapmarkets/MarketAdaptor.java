@@ -82,8 +82,9 @@ public class MarketAdaptor extends BaseAdapter{
             ((ImageView) view.findViewById(R.id.marketImg)).setImageDrawable(Drawable.createFromStream(is, "marketLogo"));
 
         } catch (Exception e) {
-            //((ImageView) view.findViewById(R.id.marketImg)).setImageResource(R.mipmap.ic_launcher);
+            ((ImageView) view.findViewById(R.id.marketImg)).setImageResource(R.mipmap.ic_launcher);
             Log.e("MM", "Error parse img from url");
+            //imageLoader.destroy();
             return view;
         }}
 //        view.setOnClickListener(new View.OnClickListener() {
@@ -100,7 +101,7 @@ public class MarketAdaptor extends BaseAdapter{
 //        });
 
         //else {((ImageView) view.findViewById(R.id.marketImg)).setImageResource(R.mipmap.ic_launcher);}
-
+        //imageLoader.destroy();
         return view;
     }
 
