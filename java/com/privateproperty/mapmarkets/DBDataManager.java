@@ -63,20 +63,6 @@ public class DBDataManager {
             mDatabase.insert(SchemaDB.MarketTable.NAME,null,values);
         }
 
-//        public void updateCrime (Crime crime) {
-//            String uuidString = crime.getId().toString();
-//            ContentValues values = getContentValues(crime);
-//
-//            mDatabase.update(CrimeDbSchema.CrimeTable.NAME,values, CrimeDbSchema.CrimeTable.Cols.UUID + " = ?", new String[] {uuidString});
-//        }
-
-//        public void deliteCrime (Crime crime) {
-//            String uuidString = crime.getId().toString();
-//
-//            mDatabase.delete(CrimeDbSchema.CrimeTable.NAME,
-//                    CrimeDbSchema.CrimeTable.Cols.UUID + " = ?", new String[] {uuidString});
-//        }
-
         private DBCursorWrapper queryMarkets(String whereClause, String[] whereArgs) {
             Cursor cursor = mDatabase.query(SchemaDB.MarketTable.NAME,null,
                     whereClause, whereArgs, null,null,null);
