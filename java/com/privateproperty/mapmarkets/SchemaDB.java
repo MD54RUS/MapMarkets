@@ -42,6 +42,28 @@ public class SchemaDB {
             public static final String COORDINATES = "coords";
         }
     }
+    public static final class ListOfLists{
+        public static final String NAME = "ListOfList";
+        public static final class Cols{
+            public static final String UUID = "_id";
+            public static final String NAME = "name";
+        }
+
+    }
+    public static final class ListToBuy{
+        public static final String NAME = "ListToBuy";
+        public static final class Cols{
+            public static final String UUID = "_id";
+            public static final String PARENTID = "parentid";
+            public static final String NAME = "name";
+            public static final String STATUS = "status";
+            public static final String CATEGORY = "category";
+
+
+        }
+
+    }
+
 //    public static final class AssortmentTable{
 //        public static final String NAME = "assortment";
 //        public static final class Cols{

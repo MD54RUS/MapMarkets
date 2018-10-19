@@ -11,11 +11,7 @@ import java.util.UUID;
  * Created by Pro-rock on 24.04.2016.
  */
 public class DBCursorWrapper extends CursorWrapper {
-    /**
-     * Creates a cursor wrapper.
-     *
-     * @param cursor The underlying cursor to wrap.
-     */
+
     public DBCursorWrapper(Cursor cursor) {
         super(cursor);
     }
@@ -46,4 +42,14 @@ public class DBCursorWrapper extends CursorWrapper {
     public String getLocation(){
         return getString(getColumnIndex(SchemaDB.LocationTable.Cols.COORDINATES));
     }
+    public String getShopList(){
+        String name = getString(getColumnIndex(SchemaDB.ProductTable.Cols.NAME));
+        return name;
+    }
+    public int getShopListId(){
+        int i =  getInt(getColumnIndex(SchemaDB.ListOfLists.Cols.UUID));
+        return i;
+    }
+
+
 }

@@ -57,10 +57,13 @@ public class MarketAdaptor extends BaseAdapter{
     @Override
     public View getView(int position, View view, ViewGroup parent) {
 
+
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(ctx)
 
         .build();
         ImageLoader.getInstance().init(config);
+
+
 
         ImageLoader imageLoader = ImageLoader.getInstance();
 
@@ -82,8 +85,8 @@ public class MarketAdaptor extends BaseAdapter{
             ((ImageView) view.findViewById(R.id.marketImg)).setImageDrawable(Drawable.createFromStream(is, "marketLogo"));
 
         } catch (Exception e) {
-            ((ImageView) view.findViewById(R.id.marketImg)).setImageResource(R.mipmap.ic_launcher);
-            Log.e("MM", "Error parse img from url");
+            //((ImageView) view.findViewById(R.id.marketImg)).setImageResource(R.mipmap.ic_launcher);
+            Log.e("MM", "Error parse img from url. Error: " + e.toString());
             //imageLoader.destroy();
             return view;
         }}
@@ -101,7 +104,7 @@ public class MarketAdaptor extends BaseAdapter{
 //        });
 
         //else {((ImageView) view.findViewById(R.id.marketImg)).setImageResource(R.mipmap.ic_launcher);}
-        //imageLoader.destroy();
+        imageLoader.destroy();
         return view;
     }
 

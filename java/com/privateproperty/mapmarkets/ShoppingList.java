@@ -1,45 +1,85 @@
 package com.privateproperty.mapmarkets;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ListViewCompat;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ArrayAdapter;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.InputStream;
+import java.util.List;
 
 /**
  * Created by Pro-rock on 25.03.2016.
  */
 public class ShoppingList extends AppCompatActivity{
-    static InputStream is = null;
-
-    static JSONObject jObj = null;
-
-    static String json = "";
-
-    String url = "http://vps-1097899.vpshome.pro:8000/api/stores";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.shopping_list_layout);
+        setContentView(R.layout.shopping_list);
+        Toolbar title = (Toolbar) findViewById(R.id.shop_list_toolbar);
 
+        title.setTitle("Список покупок: "+getIntent().getStringExtra("LOLname"));
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabShops);
+        assert fab != null;
+        fab.setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                new CustomDialogFragment().show(getSupportFragmentManager(),
+                        "dialog");
+            }
+
+        });
+//        showList();
 
     }
 
+    @Override
+    protected void onResume() {
+        showList();
+        super.onResume();
+    }
 
+
+
+    private void showList(){
+        ListViewCompat listofShops= (ListViewCompat) findViewById(R.id.list_of_shops);
+        DBDataManager dbDataManager = DBDataManager.get(getApplicationContext());
+        final List<String> shoplist;
+        shoplist = dbDataManager.getShopList(getIntent().getStringExtra("LOLname"));
+//        if (shoplist != null && !shoplist.isEmpty()){ for(String str :
+//                shoplist)
+//            Log.i("MM", "shoplist " + str);
+//        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_expandable_list_item_1, shoplist);
+        if (listofShops != null) {
+//            listofShops.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//
+//                @Override
+//                public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+//                                        long arg3) {
+//                    Intent intent = new Intent(getApplicationContext(), ShoppingList.class);
+//                    intent.putExtra("LOLname", shoplist.get(arg2));
+//                    startActivity(intent);
+//
+//                }
+//            });
+
+
+            listofShops.setAdapter(adapter);
+        }
+
+
+    }
 }
+
+
+

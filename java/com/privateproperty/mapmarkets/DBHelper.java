@@ -46,6 +46,18 @@ public class DBHelper extends SQLiteOpenHelper {
                 + SchemaDB.LocationTable.Cols.CATEGORY + " integer, "
                 + SchemaDB.LocationTable.Cols.COORDINATES + " text);");
 
+        db.execSQL("create table " + SchemaDB.ListOfLists.NAME+ " ("
+                + SchemaDB.ListOfLists.Cols.UUID + " integer primary key autoincrement, "
+                + SchemaDB.ListOfLists.Cols.NAME + " text);");
+
+        db.execSQL("create table " + SchemaDB.ListToBuy.NAME+ " ("
+                + SchemaDB.ListToBuy.Cols.UUID + " integer primary key autoincrement, "
+                + SchemaDB.ListToBuy.Cols.PARENTID + " integer, "
+                + SchemaDB.ListToBuy.Cols.NAME + " text, "
+                + SchemaDB.ListToBuy.Cols.STATUS + " integer, "
+                + SchemaDB.ListToBuy.Cols.CATEGORY + " text);");
+
+
     }
 
     @Override

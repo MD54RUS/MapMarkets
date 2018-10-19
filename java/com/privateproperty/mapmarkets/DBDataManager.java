@@ -175,6 +175,65 @@ public class DBDataManager {
             return new DBCursorWrapper(cursor);
         }
 
+    public void addShopList(String name) {
+        ContentValues values = new ContentValues();
+        values.put(SchemaDB.ListOfLists.Cols.NAME,name);
+        mDatabase.insert(SchemaDB.ListOfLists.NAME,null,values);
+    }
+
+    private DBCursorWrapper queryShopList(String whereClause, String[] whereArgs) {
+        Cursor cursor = mDatabase.query(SchemaDB.ListOfLists.NAME, null,
+                whereClause, whereArgs, null, null, null);
+        cursor.moveToFirst();
+        DBCursorWrapper DBCursor = new DBCursorWrapper(cursor);
+
+        return DBCursor;
+
+    }
+    public List<String> getShopLists(){
+        Cursor cursor = mDatabase.rawQuery("select * from "+SchemaDB.ListOfLists.NAME,null);
+        List<String> lists = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+
+            while (cursor.isAfterLast() == false) {
+                String name = cursor.getString(cursor.getColumnIndex(SchemaDB.ListOfLists.Cols.NAME));
+
+                lists.add(name);
+                cursor.moveToNext();
+            }
+        }
+
+        return lists;
+    }
+    public List<String> getShopList(String name){
+        //DBCursorWrapper cursor = queryProducts(SchemaDB.ProductTable.Cols.UUID+" = ?",new String[]{String.valueOf(id)});
+        DBCursorWrapper DBcursor = queryShopList(SchemaDB.ListOfLists.Cols.NAME+" = ?",new String[]{name});
+
+        Cursor cursor = mDatabase.query(SchemaDB.ListToBuy.NAME,null,
+                SchemaDB.ListToBuy.Cols.PARENTID+" = ?", new String[]{String.valueOf(DBcursor.getShopListId())}, null,null,null);
+        //Cursor cursor = mDatabase.rawQuery("select * from "+SchemaDB.ListToBuy.NAME,null);
+        List<String> lists = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+
+            while (!cursor.isAfterLast()) {
+                String part = cursor.getString(cursor.getColumnIndex(SchemaDB.ListToBuy.Cols.NAME));
+
+                lists.add(part);
+                cursor.moveToNext();
+            }
+        }
+
+        return lists;
+    }
+
+    public void addShopInList(String name, String ShopList) {
+        ContentValues values = new ContentValues();
+        values.put(SchemaDB.ListToBuy.Cols.NAME,name);
+        values.put(SchemaDB.ListToBuy.Cols.PARENTID,queryShopList(SchemaDB.ListOfLists.Cols.NAME+" = ?",new String[]{ShopList}).getShopListId());
+        mDatabase.insert(SchemaDB.ListToBuy.NAME,null,values);
+    }
+
+
 
 
 
